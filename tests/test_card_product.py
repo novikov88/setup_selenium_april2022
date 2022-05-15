@@ -1,5 +1,9 @@
 from selenium.webdriver.common.by import By
 from exception_handler import wait_element
+from faker import Faker
+
+# создаем экземпляр класса Faker для генерации данных
+fake = Faker()
 
 
 # тесты на карточку товара проверка радиобаттонов
@@ -31,7 +35,7 @@ def test_apple_cinema_30_text_field(browser):
     # отчищаем поле от дефолтного текста
     browser.find_element(By.XPATH, "//input[@id='input-option208']").clear()
     # вводим текст Hello, world!
-    browser.find_element(By.XPATH, "//input[@id='input-option208']").send_keys('Hello, world!')
+    browser.find_element(By.XPATH, "//input[@id='input-option208']").send_keys(fake.text())
 
 
 # проверка дропдауна Select с выбором одного из значений
@@ -53,7 +57,7 @@ def test_apple_cinema_30_select_field(browser):
 # проверка поля textarea с вводом текста
 def test_apple_cinema_30_textarea_field(browser):
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
-    browser.find_element(By.CSS_SELECTOR, '#input-option209').send_keys('Hello, world!')
+    browser.find_element(By.CSS_SELECTOR, '#input-option209').send_keys(fake.text())
 
 
 #  проверка кнопки Upload File
