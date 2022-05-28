@@ -8,8 +8,10 @@ fake = Faker()
 
 # тесты на карточку товара проверка радиобаттонов
 def test_apple_cinema_30_radiobuttons(browser):
-    """тесты на карточку товара проверка радиобаттонов"""
+    """Тесты на карточку товара проверка радиобаттонов"""
+    # главная страница переход в карточку товара
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
+    # страница продукта клики по радиобаттонам
     browser.find_element(By.XPATH, "//div[@id='input-option218']/div[1]/label").click()
     browser.find_element(By.XPATH, "//div[@id='input-option218']/div[2]/label").click()
     browser.find_element(By.XPATH, "//div[@id='input-option218']/div[3]/label").click()
@@ -17,14 +19,15 @@ def test_apple_cinema_30_radiobuttons(browser):
 
 # тесты на карточку товара проверка чекбоксов
 def test_apple_cinema_30_checkboxes(browser):
-    """тесты на карточку товара проверка чекбоксов"""
-    # активация чекбоксов
+    """Тесты на карточку товара проверка чекбоксов"""
+    # главная страница переход в карточку товара
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
+    # страница продукта активация чекбоксов
     browser.find_element(By.XPATH, "//div[@id='input-option223']/div[1]/label").click()
     browser.find_element(By.XPATH, "//div[@id='input-option223']/div[2]/label").click()
     browser.find_element(By.XPATH, "//div[@id='input-option223']/div[3]/label").click()
     browser.find_element(By.XPATH, "//div[@id='input-option223']/div[4]/label").click()
-    # деактивация чекбоксов
+    # страница продукта деактивация чекбоксов
     browser.find_element(By.XPATH, "//div[@id='input-option223']/div[1]/label").click()
     browser.find_element(By.XPATH, "//div[@id='input-option223']/div[2]/label").click()
     browser.find_element(By.XPATH, "//div[@id='input-option223']/div[3]/label").click()
@@ -33,7 +36,7 @@ def test_apple_cinema_30_checkboxes(browser):
 
 # тесты на карточку товара проверка поля текст
 def test_apple_cinema_30_text_field(browser):
-    """тесты на карточку товара проверка поля текст"""
+    """Тесты на карточку товара проверка поля текст"""
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
     # отчищаем поле от дефолтного текста
     browser.find_element(By.XPATH, "//input[@id='input-option208']").clear()
@@ -43,7 +46,7 @@ def test_apple_cinema_30_text_field(browser):
 
 # проверка дропдауна Select с выбором одного из значений
 def test_apple_cinema_30_select_field(browser):
-    """проверка дропдауна Select с выбором одного из значений"""
+    """Проверка дропдауна Select с выбором одного из значений"""
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
     browser.find_element(By.CSS_SELECTOR, "#input-option217").click()
     browser.find_element(By.XPATH, "//option[contains(text(),'(+$4.80)')]").click()
@@ -60,21 +63,21 @@ def test_apple_cinema_30_select_field(browser):
 
 # проверка поля textarea с вводом текста
 def test_apple_cinema_30_textarea_field(browser):
-    """проверка поля textarea с вводом текста"""
+    """Проверка поля textarea с вводом текста"""
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
     browser.find_element(By.CSS_SELECTOR, '#input-option209').send_keys(fake.text())
 
 
 #  проверка кнопки Upload File
 def test_apple_cinema_30_upload_button(browser):
-    """проверка кнопки Upload File"""
+    """Проверка кнопки Upload File"""
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
     browser.find_element(By.CSS_SELECTOR, '#button-upload222').click()
 
 
 #  проверка поля Date с выбором даты из календаря
 def test_apple_cinema_30_date(browser):
-    """проверка поля Date с выбором даты из календаря"""
+    """Проверка поля Date с выбором даты из календаря"""
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
     browser.find_element(By.CSS_SELECTOR, '.fa-calendar').click()
     browser.find_element(By.XPATH, '//tbody/tr[2]/td').click()
@@ -82,7 +85,7 @@ def test_apple_cinema_30_date(browser):
 
 #  проверка поля Date с вводом времени
 def test_apple_cinema_30_time(browser):
-    """проверка поля Date с вводом времени"""
+    """Проверка поля Date с вводом времени"""
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
     browser.find_element(By.CSS_SELECTOR, '#input-option221').clear()
     browser.find_element(By.CSS_SELECTOR, '#input-option221').send_keys('23:59')
@@ -91,7 +94,7 @@ def test_apple_cinema_30_time(browser):
 
 #  проверка поля Date & Time с вводом даты и времени
 def test_apple_cinema_30_data_time(browser):
-    """проверка поля Date & Time с вводом даты и времени"""
+    """Проверка поля Date & Time с вводом даты и времени"""
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
     browser.find_element(By.CSS_SELECTOR, '#input-option220').clear()
     browser.find_element(By.CSS_SELECTOR, '#input-option220').send_keys('2020-05-15 15:15')
@@ -100,7 +103,7 @@ def test_apple_cinema_30_data_time(browser):
 
 #  проверка поля Qty с вводом значения
 def test_apple_cinema_30_qty(browser):
-    """проверка поля Qty с вводом значения"""
+    """Проверка поля Qty с вводом значения"""
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
     browser.find_element(By.CSS_SELECTOR, '#input-quantity').clear()
     browser.find_element(By.CSS_SELECTOR, '#input-quantity').send_keys('+100500')
@@ -109,7 +112,7 @@ def test_apple_cinema_30_qty(browser):
 
 #  поиск кнопки Add to Cart с проверкой сообщений об обязательности полей после нажатия
 def test_apple_cinema_30_add_to_cart(browser):
-    """поиск кнопки Add to Cart с проверкой сообщений об обязательности полей после нажатия"""
+    """Поиск кнопки Add to Cart с проверкой сообщений об обязательности полей после нажатия"""
     browser.find_element(By.LINK_TEXT, 'Apple Cinema 30"').click()
     browser.find_element(By.CSS_SELECTOR, '#button-cart').click()
     # ожидание
