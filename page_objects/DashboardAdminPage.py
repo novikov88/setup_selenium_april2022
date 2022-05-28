@@ -1,0 +1,2 @@
+class DashboardAdminPage:
+    pass

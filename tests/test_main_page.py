@@ -94,6 +94,6 @@ def test_add_to_cart_button(browser):
     # главная открытие корзины и удаление товара
     browser.find_element(By.CSS_SELECTOR, ".btn-inverse").click()
     browser.find_element(By.CSS_SELECTOR, ".btn-danger").click()
-    # проверка наличия алерта и его закрытие
+    # главная проверка наличия алерта и его закрытие
     browser.find_element(By.XPATH, "//body/div[@id='common-home']/div[1]")
     browser.find_element(By.XPATH, "//button[contains(text(),'×')]").click()

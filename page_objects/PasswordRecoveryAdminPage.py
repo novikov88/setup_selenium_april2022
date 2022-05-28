@@ -1,0 +1,2 @@
+class PasswordRecoveryAdminPage:
+    pass
