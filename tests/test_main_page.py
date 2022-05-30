@@ -1,99 +1,98 @@
-from selenium.webdriver.common.by import By
-
-
-def test_check_title(browser):
-    """Проверка title страницы"""
-    # главная проверка тайтла
-    assert "Your Store" == browser.title
+from page_objects.MainPage import MainPage
+from page_objects.ProductPage import ProductPage
+from page_objects.page_elements.SuccessAlert import SuccessAlert
 
 
 def test_button_currency(browser):
     """Проверка выбора валюты"""
     # главная смена валюты
-    browser.find_element(By.CSS_SELECTOR, ".fa-caret-down").click()
-    browser.find_element(By.NAME, "USD").click()
+    MainPage(browser).click_currency_button()
+    MainPage(browser).usd_button_click()
+    MainPage(browser).usd_icon_check()
+    MainPage(browser).click_currency_button()
+    MainPage(browser).gbp_button_click()
+    MainPage(browser).gpb_icon_check()
+    MainPage(browser).click_currency_button()
+    MainPage(browser).eur_button_click()
+    MainPage(browser).eur_icon_check()
 
 
 def test_button_register(browser):
     """Проверка меню в шапке"""
     # главная поиск элемента и клик по кнопке
-    browser.find_element(By.CSS_SELECTOR, ".fa-user").click()
-    browser.find_element(By.XPATH, "//a[contains(text(),'Login')]").click()
+    MainPage(browser).my_account_button_click()
+    MainPage(browser).register_button_check()
+    MainPage(browser).login_button_check()
 
 
 def test_button_phone(browser):
-    """Проверка меню в шапке"""
+    """Проверка меню в шапке button phone"""
     # главная поиск элемента и клик по кнопке
-    browser.find_element(By.CSS_SELECTOR, ".fa-phone").click()
+    MainPage(browser).phone_button_click()
 
 
 def test_button_heart(browser):
     """Проверка меню в шапке"""
     # главная поиск элемента и клик по кнопке
-    browser.find_element(By.CSS_SELECTOR, ".fa-heart").click()
+    MainPage(browser).wish_list_button_click()
 
 
 def test_button_shopping_cart(browser):
     # главная поиск элемента и клик по кнопке
-    browser.find_element(By.CSS_SELECTOR, ".fa-shopping-cart").click()
+    MainPage(browser).shopping_cart_button_click()
 
 
 def test_button_share(browser):
     """Проверка меню в шапке"""
     # главная поиск элемента и клик по кнопке
-    browser.find_element(By.CSS_SELECTOR, ".fa-share").click()
+    MainPage(browser).checkout_button_click()
 
 
 def test_search_panel(browser):
-    """Проверка меню в шапке"""
+    """Проверка field search"""
     # главная поиск элемента и клик по кнопке
-    browser.find_element(By.CSS_SELECTOR, ".input-lg").click()
+    MainPage(browser).field_search_check()
 
 
 def test_button_search(browser):
     """Проверка кнопки поиска"""
     # главная поиск элемента и клик по кнопке Search
-    browser.find_element(By.CSS_SELECTOR, ".btn-lg").click()
-    browser.find_element(By.XPATH, "//a[contains(text(),'Search')]").click()
+    MainPage(browser).search_button_click()
+    MainPage(browser).search_text_check()
 
 
 def test_shopping_preview_button(browser):
     # главная поиск элемента и клик по кнопке корзины и проверка текста
-    browser.find_element(By.CSS_SELECTOR, ".btn-inverse").click()
-    browser.find_element(By.XPATH, "//p[contains(text(),'Your shopping cart is empty!')]").click()
+    MainPage(browser).shopping_preview_button_click()
+    MainPage(browser).empty_shopping_cart_text_check()
 
 
 def test_upper_swiper_button(browser):
     """Проверка кнопки вперед прокрутки изображения"""
     # главная поиск элемента и нажатие на кнопку
-    browser.find_element(By.XPATH,
-                         "//div [@class='slideshow swiper-viewport']/div[3]/"
-                         "div[@class='swiper-button-next']").click()
+    MainPage(browser).upper_swiper_button_click()
 
 
 def test_upper_swiper_button_back(browser):
     """Проверка кнопки назад прокрутки изображения"""
     # главная поиск элемента и нажатие на кнопку
-    browser.find_element(By.XPATH,
-                         "//div [@class='slideshow swiper-viewport']/div[3]/"
-                         "div[@class='swiper-button-prev']").click()
+    MainPage(browser).upper_swiper_button_back_click()
 
 
-def test_transition_to_commodity_iPhone6(browser):
-    """Проверка элемента iPhone6 что на него можно нажать"""
+def test_transition_to_goods(browser):
+    """Проверка перехода на товар с главной через блок featured"""
     # главная поиск элемента и нажатие товар
-    browser.find_element(By.XPATH,
-                         "//img[@class='img-responsive' and contains(@src, '192.168.1.65:8081/image/"
-                         "cache/catalog/demo/banners/iPhone6-1140x380.jpg')]").click()
+    MainPage(browser).product_item_click()
+    ProductPage(browser).add_to_cart_button_click()
 
 
 def test_add_to_cart_button(browser):
     """Проверка добавления товара в корзину"""
     # главная поиск элемента и нажатие кнопку добавления в корзину
-    browser.find_element(By.XPATH, "//span[contains(text(),'Ex Tax: $500.00')]/../../../div[3]/button[1]").click()
+    MainPage(browser).add_to_cart_product()
     # главная открытие корзины и удаление товара
-    browser.find_element(By.CSS_SELECTOR, ".btn-inverse").click()
-    browser.find_element(By.CSS_SELECTOR, ".btn-danger").click()
+    MainPage(browser).shopping_preview_button_click()
+    MainPage(browser).remove_product()
     # главная проверка наличия алерта и его закрытие
-    browser.find_element(By.XPATH, "//body/div[@id='common-home']/div[1]")
-    browser.find_element(By.XPATH, "//button[contains(text(),'×')]").click()
+    SuccessAlert(browser).check_alert_success()
+    SuccessAlert(browser).close_alert()
