@@ -28,7 +28,7 @@ def test_apple_cinema_30_text_field(browser):
     # главная страница переход в карточку товара
     MainPage(browser).go_to_product()
     # карточка товара ввод текста в поле "Текст"
-    ProductPage(browser).entering_text_in_field_text()
+    ProductPage(browser).set_text_in_field_text()
 
 
 # проверка поля textarea с вводом текста
@@ -37,7 +37,7 @@ def test_apple_cinema_30_textarea_field(browser):
     # главная страница переход в карточку товара
     MainPage(browser).go_to_product()
     # карточка товара ввод текста в поле "Textarea"
-    ProductPage(browser).entering_text_in_field_text_area()
+    ProductPage(browser).set_text_in_field_text_area()
 
 
 #  проверка поля Date с выбором даты из календаря

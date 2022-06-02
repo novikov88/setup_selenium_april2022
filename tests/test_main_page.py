@@ -91,7 +91,6 @@ def test_add_to_cart_button(browser):
     # главная поиск элемента и нажатие кнопку добавления в корзину
     MainPage(browser).add_to_cart_product()
     # главная открытие корзины и удаление товара
-    MainPage(browser).shopping_preview_button_click()
     MainPage(browser).remove_product()
     # главная проверка наличия алерта и его закрытие
     SuccessAlert(browser).check_alert_success()
