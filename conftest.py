@@ -10,7 +10,7 @@ from webdriver_manager.opera import OperaDriverManager
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome", choices=('chrome', 'firefox', 'edge', 'opera',
                                                                              'yandex'))
-    parser.addoption("--url", action="store", default="http://192.168.1.65:8081/")
+    parser.addoption("--url", action="store", default="http://192.168.1.67:8081/")
     parser.addoption("--drivers", action="store", default=os.path.expanduser("~/Downloads/drivers"))
 
 
