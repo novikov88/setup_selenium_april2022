@@ -20,30 +20,30 @@ class ProductPage(BasePage):
         self._click(self.ADD_TO_CART_BUTTON)
 
     def click_radio_buttons(self):
+        self.logger.info(f"Find all elements {self.RADIO_BUTTON}")
         count_radio = self.browser.find_elements(*self.RADIO_BUTTON)
         for value in range(len(count_radio)):
-            count_radio[value].click()
+            self._click(count_radio[value])
 
     def activation_check_boxes(self):
+        self.logger.info(f"Find all elements {self.CHECK_BOX}")
         count_check_boxes = self.browser.find_elements(*self.CHECK_BOX)
         for value in range(len(count_check_boxes)):
-            count_check_boxes[value].click()
+            self._click(count_check_boxes[value])
 
     def deactivation_check_boxes(self):
+        self.logger.info(f"Find all elements {self.CHECK_BOX}")
         count_check_boxes = self.browser.find_elements(*self.CHECK_BOX)
         for value in range(len(count_check_boxes)):
-            count_check_boxes[value].click()
+            self._click(count_check_boxes[value])
 
     def set_text_in_field_text(self):
-        self._click(self.TEXT_FIELD)
-        self.browser.find_element(*self.TEXT_FIELD).clear()
-        self.browser.find_element(*self.TEXT_FIELD).send_keys(fake.text())
+        self.input(self.TEXT_FIELD, fake.text())
 
     def set_text_in_field_text_area(self):
-        self._click(self.TEXT_AREA_FIELD)
-        self.browser.find_element(*self.TEXT_AREA_FIELD).clear()
-        self.browser.find_element(*self.TEXT_AREA_FIELD).send_keys(fake.text())
+        self.input(self.TEXT_AREA_FIELD, fake.text())
 
     def select_day_in_date_calendar(self):
         self._click(self.DATE_CALENDAR_BUTTON)
+        self.logger.info(f"Choice in calendar value: {self.DAY_BUTTON}")
         self.browser.find_elements(*self.DAY_BUTTON)[0].click()

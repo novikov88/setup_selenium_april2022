@@ -14,36 +14,24 @@ class LoginAdminPage(BasePage):
     NAVIGATION_PANEL = (By.CSS_SELECTOR, "#navigation")
 
     def successful_authorization_by_admin(self):
-        self._click(self.USERNAME_FIELD)
-        self.browser.find_element(*self.USERNAME_FIELD).clear()
-        self.browser.find_element(*self.USERNAME_FIELD).send_keys("user")
-        self._click(self.PASSWORD_FIELD)
-        self.browser.find_element(*self.PASSWORD_FIELD).clear()
-        self.browser.find_element(*self.PASSWORD_FIELD).send_keys("bitnami")
+        self.input(self.USERNAME_FIELD, "user")
+        self.input(self.PASSWORD_FIELD, "bitnami")
         self._click(self.LOGIN_BUTTON)
 
     def check_title(self):
         self._element(self.PANEL_TITLE)
 
     def enter_a_valid_username(self):
-        self._click(self.USERNAME_FIELD)
-        self.browser.find_element(*self.USERNAME_FIELD).clear()
-        self.browser.find_element(*self.USERNAME_FIELD).send_keys("user")
+        self.input(self.USERNAME_FIELD, "user")
 
     def enter_a_valid_password(self):
-        self._click(self.PASSWORD_FIELD)
-        self.browser.find_element(*self.PASSWORD_FIELD).clear()
-        self.browser.find_element(*self.PASSWORD_FIELD).send_keys("bitnami")
+        self.input(self.PASSWORD_FIELD, "bitnami")
 
     def click_on_the_button_login(self):
         self._click(self.LOGIN_BUTTON)
 
     def enter_a_invalid_username(self):
-        self._click(self.USERNAME_FIELD)
-        self.browser.find_element(*self.USERNAME_FIELD).clear()
-        self.browser.find_element(*self.USERNAME_FIELD).send_keys(fake.name())
+        self.input(self.USERNAME_FIELD, fake.name())
 
     def enter_a_invalid_password(self):
-        self._click(self.PASSWORD_FIELD)
-        self.browser.find_element(*self.PASSWORD_FIELD).clear()
-        self.browser.find_element(*self.PASSWORD_FIELD).send_keys(fake.password())
+        self.input(self.PASSWORD_FIELD, fake.password())

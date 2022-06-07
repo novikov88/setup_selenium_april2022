@@ -101,10 +101,12 @@ class MainPage(BasePage):
         self._element(self.EMPTY_SHOPPING_CART_TEXT)
 
     def upper_swiper_button_click(self):
-        self.browser.find_element(*self.UPPER_SWIPER_BUTTON_FORWARD)
+        self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_FORWARD}")
+        self.browser.find_element(*self.UPPER_SWIPER_BUTTON_FORWARD).click()
 
     def upper_swiper_button_back_click(self):
-        self.browser.find_element(*self.UPPER_SWIPER_BUTTON_BACK)
+        self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_BACK}")
+        self.browser.find_element(*self.UPPER_SWIPER_BUTTON_BACK).click()
 
     def product_item_click(self):
         self._elements(self.PRODUCT_ITEM)[random.randint(0, 3)].click()

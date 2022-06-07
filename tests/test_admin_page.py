@@ -1,4 +1,4 @@
-"""Для запуска теста использовать параметр --url http://192.168.1.65:8081/admin/
+"""Для запуска теста использовать параметр --url http://192.168.1.67:8081/admin/
 или заменить на свой IP"""
 
 from page_objects.LoginAdminPage import LoginAdminPage

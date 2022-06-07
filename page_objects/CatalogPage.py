@@ -14,5 +14,6 @@ class CatalogPage(BasePage):
         self._click(self.CONTINUE_BUTTON)
 
     def calculate_product_card(self):
+        self.logger.info(f"Search all items {self.CARD_PRODUCT}")
         count_items = self.browser.find_elements(*self.CARD_PRODUCT)
         return count_items

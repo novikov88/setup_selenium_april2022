@@ -23,12 +23,12 @@ class RegistrationPage(BasePage):
     DANGER_TEXT = (By.CSS_SELECTOR, ".text-danger")
 
     def successful_registration(self):
-        self.browser.find_element(*self.FIELD_FIRSTNAME).send_keys(fake.name())
-        self.browser.find_element(*self.FIELD_LASTNAME).send_keys(fake.last_name())
-        self.browser.find_element(*self.FIELD_EMAIL).send_keys(fake.email())
-        self.browser.find_element(*self.FIELD_PHONE).send_keys(fake.phone_number())
-        self.browser.find_element(*self.FIELD_PASSWORD).send_keys('123456')
-        self.browser.find_element(*self.FIELD_CONFIRM_PASSWORD).send_keys('123456')
+        self.input(self.FIELD_FIRSTNAME, fake.name())
+        self.input(self.FIELD_LASTNAME, fake.last_name())
+        self.input(self.FIELD_EMAIL, fake.email())
+        self.input(self.FIELD_PHONE, fake.phone_number())
+        self.input(self.FIELD_PASSWORD, '123456')
+        self.input(self.FIELD_CONFIRM_PASSWORD, '123456')
         self._click(self.CONSENT_CHECKBOX)
         self._click(self.REGISTRATION_BUTTON)
 
@@ -40,22 +40,22 @@ class RegistrationPage(BasePage):
         return text_danger
 
     def enter_first_name(self):
-        self.browser.find_element(*self.FIELD_FIRSTNAME).send_keys(fake.name())
+        self.input(self.FIELD_FIRSTNAME, fake.name())
 
     def enter_last_name(self):
-        self.browser.find_element(*self.FIELD_LASTNAME).send_keys(fake.last_name())
+        self.input(self.FIELD_LASTNAME, fake.last_name())
 
     def enter_email(self):
-        self.browser.find_element(*self.FIELD_EMAIL).send_keys(fake.email())
+        self.input(self.FIELD_EMAIL, fake.email())
 
     def enter_phone(self):
-        self.browser.find_element(*self.FIELD_PHONE).send_keys(fake.phone_number())
+        self.input(self.FIELD_PHONE, fake.phone_number())
 
     def enter_password(self):
-        self.browser.find_element(*self.FIELD_PASSWORD).send_keys('123456')
+        self.input(self.FIELD_PASSWORD, '123456')
 
     def enter_confirm_password(self):
-        self.browser.find_element(*self.FIELD_CONFIRM_PASSWORD).send_keys('123456')
+        self.input(self.FIELD_CONFIRM_PASSWORD, '123456')
 
     def click_on_radio_button_1(self):
         self._click(self.RADIO_BUTTON_1)
