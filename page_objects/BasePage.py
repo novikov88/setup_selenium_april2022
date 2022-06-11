@@ -19,8 +19,12 @@ class BasePage:
         self.logger.setLevel(level=self.browser.log_level)
 
     def _click(self, locator: tuple):
-        self.logger.info("Click on element: {}".format(locator))
-        self.wait.until(EC.element_to_be_clickable(locator)).click()
+        try:
+            self.logger.info("Click on element: {}".format(locator))
+            self.wait.until(EC.element_to_be_clickable(locator)).click()
+        except TimeoutException:
+            self.browser.save_screenshot(f"{self.browser.session_id}.png")
+            raise AssertionError("CFailed to click on element: {}".format(locator))
 
     def _element(self, locator: tuple):
         try:
@@ -39,9 +43,12 @@ class BasePage:
             raise AssertionError("Cant find elements by locator: {}".format(locator))
 
     def input(self, locator, value):
-        self.logger.info("Input: {} in input: {}".format(value, locator))
-        find_field = self.wait.until(EC.presence_of_element_located(locator))
-        find_field.click()
-        find_field.clear()
-        find_field.send_keys(value)
-
+        try:
+            self.logger.info("Input: {} in input: {}".format(value, locator))
+            find_field = self.wait.until(EC.presence_of_element_located(locator))
+            find_field.click()
+            find_field.clear()
+            find_field.send_keys(value)
+        except TimeoutException:
+            self.browser.save_screenshot(f"{self.browser.session_id}.png")
+            raise AssertionError("Failed to complete the field: {}".format(locator))

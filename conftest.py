@@ -8,6 +8,7 @@ from selenium.webdriver.chrome.service import Service as ChromiumService
 from selenium.webdriver.firefox.service import Service as FFService
 from webdriver_manager.opera import OperaDriverManager
 
+
 # def pytest_addoption(parser):
 #     parser.addoption("--browser", action="store", default="chrome", choices=('chrome', 'firefox', 'edge', 'opera',
 #                                                                              'yandex'))
