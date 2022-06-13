@@ -3,6 +3,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 import logging
+import allure
 
 
 class BasePage:
@@ -18,6 +19,7 @@ class BasePage:
         self.logger.addHandler(file_handler)
         self.logger.setLevel(level=self.browser.log_level)
 
+    @allure.step("Кликаю в элемент {locator}")
     def _click(self, locator: tuple):
         try:
             self.logger.info("Click on element: {}".format(locator))
@@ -26,6 +28,7 @@ class BasePage:
             self.browser.save_screenshot(f"{self.browser.session_id}.png")
             raise AssertionError("CFailed to click on element: {}".format(locator))
 
+    @allure.step("Ищу элемент {locator}")
     def _element(self, locator: tuple):
         try:
             self.logger.info("Check if element {} is present".format(locator))
@@ -34,6 +37,7 @@ class BasePage:
             self.browser.save_screenshot(f"{self.browser.session_id}.png")
             raise AssertionError("Cant find element by locator: {}".format(locator))
 
+    @allure.step("Ищу все элементы {locator}")
     def _elements(self, locator: tuple):
         try:
             self.logger.info("Check if elements {} is present".format(locator))
@@ -42,6 +46,7 @@ class BasePage:
             self.browser.save_screenshot(f"{self.browser.session_id}.png")
             raise AssertionError("Cant find elements by locator: {}".format(locator))
 
+    @allure.step("Ввожу '{value}' в элемент {locator}")
     def input(self, locator, value):
         try:
             self.logger.info("Input: {} in input: {}".format(value, locator))

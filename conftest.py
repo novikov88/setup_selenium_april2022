@@ -1,8 +1,10 @@
+import json
+
 import pytest
 import os
 import logging
 import datetime
-
+import allure
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromiumService
 from selenium.webdriver.firefox.service import Service as FFService
@@ -120,6 +122,12 @@ def browser(request):
     logger.info("Browser:{}".format(browser, driver.desired_capabilities))
 
     driver.maximize_window()
+
+    allure.attach(
+        name=driver.session_id,
+        body=json.dumps(driver.capabilities),
+        attachment_type=allure.attachment_type.JSON
+    )
 
     def fin():
         driver.quit()

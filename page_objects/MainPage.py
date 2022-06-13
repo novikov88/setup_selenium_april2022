@@ -2,6 +2,7 @@ import random
 import time
 from page_objects.BasePage import BasePage
 from selenium.webdriver.common.by import By
+import allure
 
 
 class MainPage(BasePage):
@@ -100,10 +101,12 @@ class MainPage(BasePage):
     def empty_shopping_cart_text_check(self):
         self._element(self.EMPTY_SHOPPING_CART_TEXT)
 
+    @allure.step(f"Кликаю в элемент {UPPER_SWIPER_BUTTON_FORWARD}")
     def upper_swiper_button_click(self):
         self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_FORWARD}")
         self.browser.find_element(*self.UPPER_SWIPER_BUTTON_FORWARD).click()
 
+    @allure.step(f"Кликаю в элемент {UPPER_SWIPER_BUTTON_BACK}")
     def upper_swiper_button_back_click(self):
         self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_BACK}")
         self.browser.find_element(*self.UPPER_SWIPER_BUTTON_BACK).click()

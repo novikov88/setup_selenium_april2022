@@ -15,7 +15,7 @@ def test_apple_cinema_30_radio_buttons(browser):
 
 
 @allure.feature("Карточка товара")
-@allure.title("Проверка радио кнопок в карточке товара")
+@allure.title("Проверка чек боксов в карточке товара")
 def test_apple_cinema_30_checkboxes(browser):
     """Шаги:
     1. Перейти в карточку товара apple_cinema_30
