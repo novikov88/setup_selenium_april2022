@@ -1,30 +1,40 @@
 """Для запуска теста использовать параметр --url http://192.168.1.67:8081/admin/
 или заменить на свой IP"""
-
+import allure
 from page_objects.LoginAdminPage import LoginAdminPage
 from page_objects.DashboardAdminPage import DashboardAdminPage
 from page_objects.page_elements.SuccessAlert import SuccessAlert
 
 
+@allure.feature("Авторизация администратором")
+@allure.title("Успешная авторизация и логаут")
 def test_admin_successful_authorization(browser):
-    """Тест проверяет успешную авторизацию администратора и выход и админки"""
-    # поиск элемента на странице логина в админке
+    """Шаги:
+    1. Заполнить Username валидным значением
+    2. Заполнить поле Password валидным значением
+    3. Нажать на кнопку Login
+    4. Проверить что прошла авторизация
+    5. Выйти из ЛК
+    6. Проверить что пользователь вышел из ЛК
+    """
     LoginAdminPage(browser).check_title()
-    # авторизация админом страница логина
     LoginAdminPage(browser).successful_authorization_by_admin()
-    # поиск элемента на странице dashboard
     DashboardAdminPage(browser).navigation_panel_check()
-    # logout из dashboard
     DashboardAdminPage(browser).logout()
-    # поиск элемента на странице логина в админке
     LoginAdminPage(browser).check_title()
 
 
+@allure.feature("Добавление нового товара")
+@allure.title("Успешное добавление нового товара")
 def test_add_new_product(browser):
-    """Тест проверяет успешное добавление товара в админке"""
-    # авторизация админом страница логина
+    """Шаги:
+    1. Авторизоваться админом
+    2. Перейти на меню добавления товара
+    3. Заполнить все необходимые поля
+    4. Нажать на кнопку Save
+    5. Проверить что товар добавлен
+    """
     LoginAdminPage(browser).successful_authorization_by_admin()
-    # перейти к добавлению товара
     DashboardAdminPage(browser).go_to_section_adding_product()
     DashboardAdminPage(browser).set_product_name()
     DashboardAdminPage(browser).set_description()
@@ -36,67 +46,83 @@ def test_add_new_product(browser):
     DashboardAdminPage(browser).check_product()
 
 
+@allure.feature("Удаление товара")
+@allure.title("Успешное удаление товара")
 def test_delete_product(browser):
-    """Тест проверяет удаление товара в админке"""
-    # авторизация админом страница логина
+    """Шаги:
+    1. Авторизоваться админом
+    2. Перейти на страницу товаров
+    3. Выбрать товар
+    4. Удалить товар
+    5. Проверить что товар удален
+    """
     LoginAdminPage(browser).successful_authorization_by_admin()
-    # перейти ко всем товарам
     DashboardAdminPage(browser).go_to_section_all_products()
-    # выбрать товар
     DashboardAdminPage(browser).choose_a_product()
-    # удалить товар
     DashboardAdminPage(browser).delete_a_product()
-    # проверка алерта с ошибкой
     SuccessAlert(browser).check_alert()
-    # закрытие алерта
     SuccessAlert(browser).close_alert()
 
 
+@allure.feature("Авторизация администратором")
+@allure.title("Ошибка при авторизации с неверным паролем")
 def test_admin_invalid_password(browser):
-    """Тест проверяет попытку авторизации администратора с неверным паролем проверку отображения предупреждения и
-    закрытие сообщения"""
-    # авторизация админом страница логина
+    """Шаги:
+    1. Заполнить Username валидным значением
+    2. Заполнить поле Password не валидным значением
+    3. Нажать на кнопку Login
+    4. Проверить ошибку в алерте
+    5. Закрыть алерт
+    """
     LoginAdminPage(browser).enter_a_valid_username()
     LoginAdminPage(browser).enter_a_invalid_password()
     LoginAdminPage(browser).click_on_the_button_login()
-    # проверка алерта с ошибкой
     SuccessAlert(browser).check_alert()
-    # закрытие алерта
     SuccessAlert(browser).close_alert()
 
 
+@allure.feature("Авторизация администратором")
+@allure.title("Ошибка при авторизации с неверным логином")
 def test_admin_invalid_login(browser):
-    """Тест проверяет попытку авторизации администратора с неверным логином проверку отображения предупреждения и
-    закрытие сообщения"""
-    # авторизация админом страница логина
+    """Шаги:
+    1. Заполнить Username не валидным значением
+    2. Заполнить поле Password валидным значением
+    3. Нажать на кнопку Login
+    4. Проверить ошибку в алерте
+    5. Закрыть алерт
+    """
     LoginAdminPage(browser).enter_a_invalid_username()
     LoginAdminPage(browser).enter_a_valid_password()
     LoginAdminPage(browser).click_on_the_button_login()
-    # проверка алерта с ошибкой
     SuccessAlert(browser).check_alert()
-    # закрытие алерта
     SuccessAlert(browser).close_alert()
 
 
+@allure.feature("Авторизация администратором")
+@allure.title("Ошибка при авторизации с неверным логином и паролем")
 def test_admin_incorrect_username_and_password(browser):
-    """Тест проверяет попытку авторизации администратора с неверным логином и паролем, проверку отображения
-    предупреждения и закрытие сообщения"""
-    # авторизация админом страница логина
+    """Шаги:
+    1. Заполнить Username не валидным значением
+    2. Заполнить поле Password не валидным значением
+    3. Нажать на кнопку Login
+    4. Проверить ошибку в алерте
+    5. Закрыть алерт
+    """
     LoginAdminPage(browser).enter_a_invalid_username()
     LoginAdminPage(browser).enter_a_invalid_password()
     LoginAdminPage(browser).click_on_the_button_login()
-    # проверка алерта с ошибкой
     SuccessAlert(browser).check_alert()
-    # закрытие алерта
     SuccessAlert(browser).close_alert()
 
 
+@allure.feature("Авторизация администратором")
+@allure.title("Ошибка при авторизации без заполнения логина и пароля")
 def test_admin_without_username_and_password(browser):
-    """Тест проверяет попытку авторизации администратора без ввода логина и пароля, проверку отображения
-    предупреждения и закрытие сообщения"""
-    # авторизация админом страница логина
+    """Шаги:
+    1. Нажать на кнопку Login не заполняя полей
+    2. Проверить ошибку в алерте
+    3. Закрыть алерт
+    """
     LoginAdminPage(browser).click_on_the_button_login()
-    # проверка алерта с ошибкой
     SuccessAlert(browser).check_alert()
-    # закрытие алерта
     SuccessAlert(browser).close_alert()

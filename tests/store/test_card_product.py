@@ -1,49 +1,60 @@
 from page_objects.MainPage import MainPage
 from page_objects.ProductPage import ProductPage
+import allure
 
 
-# тесты на карточку товара проверка радиобаттонов
+@allure.feature("Карточка товара")
+@allure.title("Проверка радио кнопок в карточке товара")
 def test_apple_cinema_30_radio_buttons(browser):
-    """Тесты на карточку товара проверка радиобаттонов"""
-    # главная страница переход в карточку товара
+    """Шаги:
+    1. Перейти в карточку товара apple_cinema_30
+    2. Нажать на каждый радиобаттон
+    """
     MainPage(browser).go_to_product()
-    # страница продукта клики по радиобаттонам
     ProductPage(browser).click_radio_buttons()
 
 
-# тесты на карточку товара проверка чекбоксов
+@allure.feature("Карточка товара")
+@allure.title("Проверка радио кнопок в карточке товара")
 def test_apple_cinema_30_checkboxes(browser):
-    """Тесты на карточку товара проверка чекбоксов"""
-    # главная страница переход в карточку товара
+    """Шаги:
+    1. Перейти в карточку товара apple_cinema_30
+    2. Активировать все чекбоксы
+    3. Деактивировать все чекбоксы
+    """
     MainPage(browser).go_to_product()
-    # страница продукта активация чекбоксов
     ProductPage(browser).activation_check_boxes()
-    # страница продукта деактивация чекбоксов
     ProductPage(browser).deactivation_check_boxes()
 
 
-# тесты на карточку товара проверка поля текст
+@allure.feature("Карточка товара")
+@allure.title("Проверка поля text")
 def test_apple_cinema_30_text_field(browser):
-    """Тесты на карточку товара проверка поля текст"""
-    # главная страница переход в карточку товара
+    """Шаги:
+    1. Перейти в карточку товара apple_cinema_30
+    2. Ввести текст в поле text
+    """
     MainPage(browser).go_to_product()
-    # карточка товара ввод текста в поле "Текст"
     ProductPage(browser).set_text_in_field_text()
 
 
-# проверка поля textarea с вводом текста
+@allure.feature("Карточка товара")
+@allure.title("Проверка поля textarea")
 def test_apple_cinema_30_textarea_field(browser):
-    """Проверка поля textarea с вводом текста"""
-    # главная страница переход в карточку товара
+    """Шаги:
+    1. Перейти в карточку товара apple_cinema_30
+    2. Ввести текст в поле textarea
+    """
     MainPage(browser).go_to_product()
-    # карточка товара ввод текста в поле "Textarea"
     ProductPage(browser).set_text_in_field_text_area()
 
 
-#  проверка поля Date с выбором даты из календаря
+@allure.feature("Карточка товара")
+@allure.title("Проверка поля Date с выбором даты из календаря")
 def test_apple_cinema_30_date(browser):
-    """Проверка поля Date с выбором даты из календаря"""
-    # главная страница переход в карточку товара
+    """Шаги:
+    1. Перейти в карточку товара apple_cinema_30
+    2. Выбрать дату из календаря
+    """
     MainPage(browser).go_to_product()
-    # карточка товара ввод даты из календаря
     ProductPage(browser).select_day_in_date_calendar()
