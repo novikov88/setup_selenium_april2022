@@ -72,10 +72,10 @@ def test_button_share(browser):
 
 
 @allure.feature("Главная / поиск")
-@allure.title("Поиск элемента и клик по полю field_search")
+@allure.title("Поиск элемента  field_search")
 def test_search_panel(browser):
     """Шаги:
-    1. Найти и кликнуть по полю field_search"""
+    1. Найти поле field_search"""
     MainPage(browser).field_search_check()
 
 

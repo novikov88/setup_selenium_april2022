@@ -2,6 +2,7 @@ import allure
 from page_objects.BasePage import BasePage
 from faker import Faker
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 
 # создаем экземпляр класса Faker для генерации данных
 fake = Faker()
@@ -19,26 +20,47 @@ class ProductPage(BasePage):
     def add_to_cart_button_click(self):
         self._click(self.ADD_TO_CART_BUTTON)
 
-    @allure.step(f"Ищу все элементы radio buttons{RADIO_BUTTON}")
     def click_radio_buttons(self):
-        self.logger.info(f"Find all elements {self.RADIO_BUTTON}")
-        count_radio = self.browser.find_elements(*self.RADIO_BUTTON)
-        for value in range(len(count_radio)):
-            self._click(count_radio[value])
+        with allure.step(f"Ищу все элементы radio buttons{self.RADIO_BUTTON} и кликаю в найденные"):
+            try:
+                self.logger.info(f"Find all elements {self.RADIO_BUTTON}")
+                count_radio = self.browser.find_elements(*self.RADIO_BUTTON)
+                for value in range(len(count_radio)):
+                    self._click(count_radio[value])
+            except TimeoutException:
+                allure.attach(
+                    body=self.browser.get_screenshot_as_png(),
+                    name="radio_button_screenshot_image",
+                    attachment_type=allure.attachment_type.PNG)
+                raise AssertionError(f"Couldn't find items: {self.RADIO_BUTTON}")
 
-    @allure.step(f"Ищу все не активированные элементы check boxes{CHECK_BOX}")
     def activation_check_boxes(self):
-        self.logger.info(f"Find all elements {self.CHECK_BOX}")
-        count_check_boxes = self.browser.find_elements(*self.CHECK_BOX)
-        for value in range(len(count_check_boxes)):
-            self._click(count_check_boxes[value])
+        with allure.step(f"Ищу все не активированные элементы check boxes{self.CHECK_BOX} и кликаю в найденные"):
+            try:
+                self.logger.info(f"Find all elements {self.CHECK_BOX}")
+                count_check_boxes = self.browser.find_elements(*self.CHECK_BOX)
+                for value in range(len(count_check_boxes)):
+                    self._click(count_check_boxes[value])
+            except TimeoutException:
+                allure.attach(
+                    body=self.browser.get_screenshot_as_png(),
+                    name="check_boxes_screenshot_image",
+                    attachment_type=allure.attachment_type.PNG)
+                raise AssertionError(f"Couldn't find items: {self.CHECK_BOX}")
 
-    @allure.step(f"Ищу все элементы активированные check boxes{CHECK_BOX}")
     def deactivation_check_boxes(self):
-        self.logger.info(f"Find all elements {self.CHECK_BOX}")
-        count_check_boxes = self.browser.find_elements(*self.CHECK_BOX)
-        for value in range(len(count_check_boxes)):
-            self._click(count_check_boxes[value])
+        with allure.step(f"Ищу все активированные элементы check boxes{self.CHECK_BOX} и кликаю в найденные"):
+            try:
+                self.logger.info(f"Find all elements {self.CHECK_BOX}")
+                count_check_boxes = self.browser.find_elements(*self.CHECK_BOX)
+                for value in range(len(count_check_boxes)):
+                    self._click(count_check_boxes[value])
+            except TimeoutException:
+                allure.attach(
+                    body=self.browser.get_screenshot_as_png(),
+                    name="check_boxes_screenshot_image",
+                    attachment_type=allure.attachment_type.PNG)
+                raise AssertionError(f"Couldn't find items: {self.CHECK_BOX}")
 
     def set_text_in_field_text(self):
         self.input(self.TEXT_FIELD, fake.text())
@@ -46,8 +68,15 @@ class ProductPage(BasePage):
     def set_text_in_field_text_area(self):
         self.input(self.TEXT_AREA_FIELD, fake.text())
 
-    @allure.step(f"Ищу все элементы календаря {DAY_BUTTON}")
     def select_day_in_date_calendar(self):
         self._click(self.DATE_CALENDAR_BUTTON)
         self.logger.info(f"Choice in calendar value: {self.DAY_BUTTON}")
-        self.browser.find_elements(*self.DAY_BUTTON)[0].click()
+        with allure.step(f"Ищу все элементы в календаре и клик на нулевой {self.DAY_BUTTON}"):
+            try:
+                self.browser.find_elements(*self.DAY_BUTTON)[0].click()
+            except TimeoutException:
+                allure.attach(
+                    body=self.browser.get_screenshot_as_png(),
+                    name="check_boxes_screenshot_image",
+                    attachment_type=allure.attachment_type.PNG)
+                raise AssertionError(f"Couldn't find items: {self.DAY_BUTTON}")

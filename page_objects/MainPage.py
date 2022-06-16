@@ -3,6 +3,7 @@ import time
 from page_objects.BasePage import BasePage
 from selenium.webdriver.common.by import By
 import allure
+from selenium.common.exceptions import TimeoutException
 
 
 class MainPage(BasePage):
@@ -101,15 +102,29 @@ class MainPage(BasePage):
     def empty_shopping_cart_text_check(self):
         self._element(self.EMPTY_SHOPPING_CART_TEXT)
 
-    @allure.step(f"Кликаю в элемент {UPPER_SWIPER_BUTTON_FORWARD}")
     def upper_swiper_button_click(self):
-        self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_FORWARD}")
-        self.browser.find_element(*self.UPPER_SWIPER_BUTTON_FORWARD).click()
+        with allure.step(f"Ищу и кликаю в элемент {self.UPPER_SWIPER_BUTTON_FORWARD}"):
+            try:
+                self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_FORWARD}")
+                self.browser.find_element(*self.UPPER_SWIPER_BUTTON_FORWARD).click()
+            except TimeoutException:
+                allure.attach(
+                    body=self.browser.get_screenshot_as_png(),
+                    name="screenshot_image",
+                    attachment_type=allure.attachment_type.PNG)
+                raise AssertionError("Unable to find or click on element: {}".format(self.UPPER_SWIPER_BUTTON_FORWARD))
 
-    @allure.step(f"Кликаю в элемент {UPPER_SWIPER_BUTTON_BACK}")
     def upper_swiper_button_back_click(self):
-        self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_BACK}")
-        self.browser.find_element(*self.UPPER_SWIPER_BUTTON_BACK).click()
+        with allure.step(f"Ищу и кликаю в элемент {self.UPPER_SWIPER_BUTTON_BACK}"):
+            try:
+                self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_BACK}")
+                self.browser.find_element(*self.UPPER_SWIPER_BUTTON_BACK).click()
+            except TimeoutException:
+                allure.attach(
+                    body=self.browser.get_screenshot_as_png(),
+                    name="screenshot_image",
+                    attachment_type=allure.attachment_type.PNG)
+                raise AssertionError("Unable to find or click on element: {}".format(self.UPPER_SWIPER_BUTTON_BACK))
 
     def product_item_click(self):
         self._elements(self.PRODUCT_ITEM)[random.randint(0, 3)].click()
