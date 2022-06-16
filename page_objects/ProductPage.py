@@ -32,7 +32,7 @@ class ProductPage(BasePage):
                     body=self.browser.get_screenshot_as_png(),
                     name="radio_button_screenshot_image",
                     attachment_type=allure.attachment_type.PNG)
-                raise AssertionError(f"Couldn't find items: {self.RADIO_BUTTON}")
+                raise AssertionError(f"Couldn't find items: {self.RADIO_BUTTON} on page {self.browser.current_url}")
 
     def activation_check_boxes(self):
         with allure.step(f"Ищу все не активированные элементы check boxes{self.CHECK_BOX} и кликаю в найденные"):
@@ -46,7 +46,7 @@ class ProductPage(BasePage):
                     body=self.browser.get_screenshot_as_png(),
                     name="check_boxes_screenshot_image",
                     attachment_type=allure.attachment_type.PNG)
-                raise AssertionError(f"Couldn't find items: {self.CHECK_BOX}")
+                raise AssertionError(f"Couldn't find items: {self.CHECK_BOX} on page {self.browser.current_url}")
 
     def deactivation_check_boxes(self):
         with allure.step(f"Ищу все активированные элементы check boxes{self.CHECK_BOX} и кликаю в найденные"):
@@ -60,7 +60,7 @@ class ProductPage(BasePage):
                     body=self.browser.get_screenshot_as_png(),
                     name="check_boxes_screenshot_image",
                     attachment_type=allure.attachment_type.PNG)
-                raise AssertionError(f"Couldn't find items: {self.CHECK_BOX}")
+                raise AssertionError(f"Couldn't find items: {self.CHECK_BOX} on page {self.browser.current_url}")
 
     def set_text_in_field_text(self):
         self.input(self.TEXT_FIELD, fake.text())
@@ -79,4 +79,4 @@ class ProductPage(BasePage):
                     body=self.browser.get_screenshot_as_png(),
                     name="check_boxes_screenshot_image",
                     attachment_type=allure.attachment_type.PNG)
-                raise AssertionError(f"Couldn't find items: {self.DAY_BUTTON}")
+                raise AssertionError(f"Couldn't find items: {self.DAY_BUTTON} on page {self.browser.current_url}")

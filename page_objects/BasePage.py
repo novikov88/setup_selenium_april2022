@@ -27,9 +27,9 @@ class BasePage:
             except TimeoutException:
                 allure.attach(
                     body=self.browser.get_screenshot_as_png(),
-                    name="screenshot_image",
+                    name=f"{locator}",
                     attachment_type=allure.attachment_type.PNG)
-                raise AssertionError("Failed to click on element: {}".format(locator))
+                raise AssertionError(f"Failed to click on element: {locator} on page {self.browser.current_url}")
 
     def _element(self, locator: tuple):
         with allure.step(f"Ищу элемент {locator}"):
@@ -39,9 +39,9 @@ class BasePage:
             except TimeoutException:
                 allure.attach(
                     body=self.browser.get_screenshot_as_png(),
-                    name="screenshot_image",
+                    name=f"{locator}",
                     attachment_type=allure.attachment_type.PNG)
-                raise AssertionError("Cant find element by locator: {}".format(locator))
+                raise AssertionError(f"Cant find element by locator: {locator} on page {self.browser.current_url}")
 
     def _elements(self, locator: tuple):
         with allure.step(f"Ищу все элементы {locator}"):
@@ -51,9 +51,9 @@ class BasePage:
             except TimeoutException:
                 allure.attach(
                     body=self.browser.get_screenshot_as_png(),
-                    name="screenshot_image",
+                    name=f"{locator}",
                     attachment_type=allure.attachment_type.PNG)
-                raise AssertionError("Cant find elements by locator: {}".format(locator))
+                raise AssertionError(f"Cant find elements by locator: {locator} on page {self.browser.current_url}")
 
     def input(self, locator, value):
         with allure.step(f"Ввожу '{value}' в элемент {locator}"):
@@ -66,6 +66,6 @@ class BasePage:
             except TimeoutException:
                 allure.attach(
                     body=self.browser.get_screenshot_as_png(),
-                    name="screenshot_image",
+                    name=f"{locator}",
                     attachment_type=allure.attachment_type.PNG)
-                raise AssertionError("Failed to complete the field: {}".format(locator))
+                raise AssertionError(f"Failed to complete the field: {locator} on page {self.browser.current_url}")

@@ -30,7 +30,7 @@ class MainPage(BasePage):
         By.XPATH, "//div [@class='slideshow swiper-viewport']/div[3]/div[@class='swiper-button-next']")
     UPPER_SWIPER_BUTTON_BACK = (
         By.XPATH, "//div [@class='slideshow swiper-viewport']/div[3]/div[@class='swiper-button-prev']")
-    PRODUCT_ITEM = (By.CSS_SELECTOR, ".product-layout")
+    PRODUCT_ITEM = (By.CSS_SELECTOR, ".product-layout11111")
     ADD_TO_CART_BUTTON = (By.CSS_SELECTOR, ".fa-shopping-cart")
     DELETE_BUTTON = (By.CSS_SELECTOR, ".btn-danger")
     DESKTOPS_BUTTON = (By.LINK_TEXT, "Desktops")
@@ -112,7 +112,9 @@ class MainPage(BasePage):
                     body=self.browser.get_screenshot_as_png(),
                     name="screenshot_image",
                     attachment_type=allure.attachment_type.PNG)
-                raise AssertionError("Unable to find or click on element: {}".format(self.UPPER_SWIPER_BUTTON_FORWARD))
+                raise AssertionError(
+                    f"Unable to find or click on element: {self.UPPER_SWIPER_BUTTON_FORWARD} "
+                    f"on page {self.browser.current_url}")
 
     def upper_swiper_button_back_click(self):
         with allure.step(f"Ищу и кликаю в элемент {self.UPPER_SWIPER_BUTTON_BACK}"):
@@ -124,7 +126,9 @@ class MainPage(BasePage):
                     body=self.browser.get_screenshot_as_png(),
                     name="screenshot_image",
                     attachment_type=allure.attachment_type.PNG)
-                raise AssertionError("Unable to find or click on element: {}".format(self.UPPER_SWIPER_BUTTON_BACK))
+                raise AssertionError(
+                    f"Unable to find or click on element: {self.UPPER_SWIPER_BUTTON_BACK} "
+                    f"on page {self.browser.current_url}")
 
     def product_item_click(self):
         self._elements(self.PRODUCT_ITEM)[random.randint(0, 3)].click()

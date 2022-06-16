@@ -26,4 +26,4 @@ class CatalogPage(BasePage):
                     body=self.browser.get_screenshot_as_png(),
                     name="screenshot_image",
                     attachment_type=allure.attachment_type.PNG)
-                raise AssertionError(f"Couldn't find items: {self.CARD_PRODUCT}")
+                raise AssertionError(f"Couldn't find items: {self.CARD_PRODUCT} on page {self.browser.current_url}")
