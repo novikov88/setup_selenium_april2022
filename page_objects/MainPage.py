@@ -30,7 +30,7 @@ class MainPage(BasePage):
         By.XPATH, "//div [@class='slideshow swiper-viewport']/div[3]/div[@class='swiper-button-next']")
     UPPER_SWIPER_BUTTON_BACK = (
         By.XPATH, "//div [@class='slideshow swiper-viewport']/div[3]/div[@class='swiper-button-prev']")
-    PRODUCT_ITEM = (By.CSS_SELECTOR, ".product-layout11111")
+    PRODUCT_ITEM = (By.CSS_SELECTOR, ".product-layout")
     ADD_TO_CART_BUTTON = (By.CSS_SELECTOR, ".fa-shopping-cart")
     DELETE_BUTTON = (By.CSS_SELECTOR, ".btn-danger")
     DESKTOPS_BUTTON = (By.LINK_TEXT, "Desktops")
