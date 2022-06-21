@@ -15,9 +15,14 @@ class BasePage:
         self.logger = logging.getLogger(type(self).__name__)
         file_handler = logging.FileHandler(f"logs/{self.browser.test_name}.log")
         file_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-        self.logger.handlers[:] = [file_handler]
+        self.logger.handlers.clear()
         self.logger.addHandler(file_handler)
         self.logger.setLevel(level=self.browser.log_level)
+
+    def add_screenshot_to_allure(self, locator):
+        allure.attach(body=self.browser.get_screenshot_as_png(),
+                      name=f"{locator}",
+                      attachment_type=allure.attachment_type.PNG)
 
     def _click(self, locator: tuple):
         with allure.step(f"Кликаю в элемент {locator}"):
@@ -25,10 +30,7 @@ class BasePage:
                 self.logger.info("Click on element: {}".format(locator))
                 self.wait.until(EC.element_to_be_clickable(locator)).click()
             except TimeoutException:
-                allure.attach(
-                    body=self.browser.get_screenshot_as_png(),
-                    name=f"{locator}",
-                    attachment_type=allure.attachment_type.PNG)
+                self.add_screenshot_to_allure(locator)
                 raise AssertionError(f"Failed to click on element: {locator} on page {self.browser.current_url}")
 
     def _element(self, locator: tuple):
@@ -37,10 +39,7 @@ class BasePage:
                 self.logger.info("Check if element {} is present".format(locator))
                 return self.wait.until(EC.visibility_of_element_located(locator))
             except TimeoutException:
-                allure.attach(
-                    body=self.browser.get_screenshot_as_png(),
-                    name=f"{locator}",
-                    attachment_type=allure.attachment_type.PNG)
+                self.add_screenshot_to_allure(locator)
                 raise AssertionError(f"Cant find element by locator: {locator} on page {self.browser.current_url}")
 
     def _elements(self, locator: tuple):
@@ -49,10 +48,7 @@ class BasePage:
                 self.logger.info("Check if elements {} is present".format(locator))
                 return self.wait.until(EC.visibility_of_all_elements_located(locator))
             except TimeoutException:
-                allure.attach(
-                    body=self.browser.get_screenshot_as_png(),
-                    name=f"{locator}",
-                    attachment_type=allure.attachment_type.PNG)
+                self.add_screenshot_to_allure(locator)
                 raise AssertionError(f"Cant find elements by locator: {locator} on page {self.browser.current_url}")
 
     def input(self, locator, value):
@@ -64,8 +60,5 @@ class BasePage:
                 find_field.clear()
                 find_field.send_keys(value)
             except TimeoutException:
-                allure.attach(
-                    body=self.browser.get_screenshot_as_png(),
-                    name=f"{locator}",
-                    attachment_type=allure.attachment_type.PNG)
+                self.add_screenshot_to_allure(locator)
                 raise AssertionError(f"Failed to complete the field: {locator} on page {self.browser.current_url}")

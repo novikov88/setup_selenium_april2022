@@ -108,10 +108,7 @@ class MainPage(BasePage):
                 self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_FORWARD}")
                 self.browser.find_element(*self.UPPER_SWIPER_BUTTON_FORWARD).click()
             except TimeoutException:
-                allure.attach(
-                    body=self.browser.get_screenshot_as_png(),
-                    name="screenshot_image",
-                    attachment_type=allure.attachment_type.PNG)
+                self.add_screenshot_to_allure(self.UPPER_SWIPER_BUTTON_FORWARD)
                 raise AssertionError(
                     f"Unable to find or click on element: {self.UPPER_SWIPER_BUTTON_FORWARD} "
                     f"on page {self.browser.current_url}")
@@ -122,10 +119,7 @@ class MainPage(BasePage):
                 self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_BACK}")
                 self.browser.find_element(*self.UPPER_SWIPER_BUTTON_BACK).click()
             except TimeoutException:
-                allure.attach(
-                    body=self.browser.get_screenshot_as_png(),
-                    name="screenshot_image",
-                    attachment_type=allure.attachment_type.PNG)
+                self.add_screenshot_to_allure(self.UPPER_SWIPER_BUTTON_BACK)
                 raise AssertionError(
                     f"Unable to find or click on element: {self.UPPER_SWIPER_BUTTON_BACK} "
                     f"on page {self.browser.current_url}")

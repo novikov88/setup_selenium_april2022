@@ -28,10 +28,7 @@ class ProductPage(BasePage):
                 for value in range(len(count_radio)):
                     self._click(count_radio[value])
             except TimeoutException:
-                allure.attach(
-                    body=self.browser.get_screenshot_as_png(),
-                    name="radio_button_screenshot_image",
-                    attachment_type=allure.attachment_type.PNG)
+                self.add_screenshot_to_allure(self.RADIO_BUTTON)
                 raise AssertionError(f"Couldn't find items: {self.RADIO_BUTTON} on page {self.browser.current_url}")
 
     def activation_check_boxes(self):
@@ -42,10 +39,7 @@ class ProductPage(BasePage):
                 for value in range(len(count_check_boxes)):
                     self._click(count_check_boxes[value])
             except TimeoutException:
-                allure.attach(
-                    body=self.browser.get_screenshot_as_png(),
-                    name="check_boxes_screenshot_image",
-                    attachment_type=allure.attachment_type.PNG)
+                self.add_screenshot_to_allure(self.CHECK_BOX)
                 raise AssertionError(f"Couldn't find items: {self.CHECK_BOX} on page {self.browser.current_url}")
 
     def deactivation_check_boxes(self):
@@ -56,10 +50,7 @@ class ProductPage(BasePage):
                 for value in range(len(count_check_boxes)):
                     self._click(count_check_boxes[value])
             except TimeoutException:
-                allure.attach(
-                    body=self.browser.get_screenshot_as_png(),
-                    name="check_boxes_screenshot_image",
-                    attachment_type=allure.attachment_type.PNG)
+                self.add_screenshot_to_allure(self.CHECK_BOX)
                 raise AssertionError(f"Couldn't find items: {self.CHECK_BOX} on page {self.browser.current_url}")
 
     def set_text_in_field_text(self):
@@ -75,8 +66,5 @@ class ProductPage(BasePage):
             try:
                 self.browser.find_elements(*self.DAY_BUTTON)[0].click()
             except TimeoutException:
-                allure.attach(
-                    body=self.browser.get_screenshot_as_png(),
-                    name="check_boxes_screenshot_image",
-                    attachment_type=allure.attachment_type.PNG)
+                self.add_screenshot_to_allure(self.DAY_BUTTON)
                 raise AssertionError(f"Couldn't find items: {self.DAY_BUTTON} on page {self.browser.current_url}")
