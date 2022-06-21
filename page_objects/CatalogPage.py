@@ -5,9 +5,9 @@ from selenium.common.exceptions import TimeoutException
 
 
 class CatalogPage(BasePage):
-    CONTINUE_BUTTON = (By.CSS_SELECTOR, ".btn-primary1")
-    PRODUCT_COMPARE_TEXT = (By.PARTIAL_LINK_TEXT, "Product Compare (0)1")
-    CARD_PRODUCT = (By.CSS_SELECTOR, ".product-thumb1")
+    CONTINUE_BUTTON = (By.CSS_SELECTOR, ".btn-primary")
+    PRODUCT_COMPARE_TEXT = (By.PARTIAL_LINK_TEXT, "Product Compare (0)")
+    CARD_PRODUCT = (By.CSS_SELECTOR, ".product-thumb")
 
     def product_compare_check(self):
         self._click(self.PRODUCT_COMPARE_TEXT)
