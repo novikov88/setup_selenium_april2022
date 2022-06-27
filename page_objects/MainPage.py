@@ -2,6 +2,8 @@ import random
 import time
 from page_objects.BasePage import BasePage
 from selenium.webdriver.common.by import By
+import allure
+from selenium.common.exceptions import TimeoutException
 
 
 class MainPage(BasePage):
@@ -101,10 +103,26 @@ class MainPage(BasePage):
         self._element(self.EMPTY_SHOPPING_CART_TEXT)
 
     def upper_swiper_button_click(self):
-        self.browser.find_element(*self.UPPER_SWIPER_BUTTON_FORWARD)
+        with allure.step(f"Ищу и кликаю в элемент {self.UPPER_SWIPER_BUTTON_FORWARD}"):
+            try:
+                self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_FORWARD}")
+                self.browser.find_element(*self.UPPER_SWIPER_BUTTON_FORWARD).click()
+            except TimeoutException:
+                self.add_screenshot_to_allure(self.UPPER_SWIPER_BUTTON_FORWARD)
+                raise AssertionError(
+                    f"Unable to find or click on element: {self.UPPER_SWIPER_BUTTON_FORWARD} "
+                    f"on page {self.browser.current_url}")
 
     def upper_swiper_button_back_click(self):
-        self.browser.find_element(*self.UPPER_SWIPER_BUTTON_BACK)
+        with allure.step(f"Ищу и кликаю в элемент {self.UPPER_SWIPER_BUTTON_BACK}"):
+            try:
+                self.logger.info(f"Click on an element {self.UPPER_SWIPER_BUTTON_BACK}")
+                self.browser.find_element(*self.UPPER_SWIPER_BUTTON_BACK).click()
+            except TimeoutException:
+                self.add_screenshot_to_allure(self.UPPER_SWIPER_BUTTON_BACK)
+                raise AssertionError(
+                    f"Unable to find or click on element: {self.UPPER_SWIPER_BUTTON_BACK} "
+                    f"on page {self.browser.current_url}")
 
     def product_item_click(self):
         self._elements(self.PRODUCT_ITEM)[random.randint(0, 3)].click()

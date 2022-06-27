@@ -1,48 +1,123 @@
 import pytest
 import os
-
+import datetime
+import json
+import logging
+import allure
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromiumService
-from selenium.webdriver.firefox.service import Service as FFService
-from webdriver_manager.opera import OperaDriverManager
+from selenium.webdriver.opera.options import Options
+from selenium.webdriver import ChromeOptions
+from selenium.webdriver import FirefoxOptions
+from selenium.webdriver.chrome.options import Options
 
 
 def pytest_addoption(parser):
-    parser.addoption("--browser", action="store", default="chrome", choices=('chrome', 'firefox', 'edge', 'opera',
-                                                                             'yandex'))
-    parser.addoption("--url", action="store", default="http://192.168.1.67:8081/")
+    parser.addoption("--browser", action="store", default="chrome",
+                     choices=('chrome', 'firefox', 'MicrosoftEdge', 'opera', 'yandex'))
+    parser.addoption("--executor", action="store", default="192.168.1.67")
+    parser.addoption("--url", default="http://192.168.1.67:8081")
+    parser.addoption("--headless", action="store_true")
     parser.addoption("--drivers", action="store", default=os.path.expanduser("~/Downloads/drivers"))
+    parser.addoption("--log_level", action="store", default="DEBUG")
+    parser.addoption("--vnc", action="store_true")
+    parser.addoption("--logs", action="store_true")
+    parser.addoption("--videos", action="store_true")
+    parser.addoption("--bv")
 
 
 @pytest.fixture
 def browser(request):
-    # Сбор параметров запуска для pytest
     browser = request.config.getoption("--browser")
+    executor = request.config.getoption("--executor")
     url = request.config.getoption("--url")
+    log_level = request.config.getoption("--log_level")
     drivers = request.config.getoption("--drivers")
+    version = request.config.getoption("--bv")
+    vnc = request.config.getoption("--vnc")
+    logs = request.config.getoption("--logs")
+    videos = request.config.getoption("--videos")
+    headless = request.config.getoption("--headless")
 
-    if browser == "chrome":
-        service = ChromiumService(executable_path=drivers + "/chromedriver")
-        driver = webdriver.Chrome(service=service)
+    logger = logging.getLogger(request.node.name)
+    file_handler = logging.FileHandler(f"logs/{request.node.name}.log")
+    file_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+    logger.addHandler(file_handler)
+    logger.setLevel(level=log_level)
 
-    elif browser == "firefox":
-        service = FFService(executable_path=drivers + "/geckodriver")
-        driver = webdriver.Firefox(service=service)
+    if executor == 'local':
+        logger.info(f"Starting local environment: {url}, browser: {browser}")
+        if browser == 'chrome':
+            options = ChromeOptions()
+            if headless:
+                options.headless = True
+            driver = webdriver.Chrome(executable_path=f'{drivers}/chromedriver', options=options)
+        elif browser == 'firefox':
+            options = FirefoxOptions()
+            if headless:
+                options.headless = True
+            driver = webdriver.Firefox(executable_path=f'{drivers}/geckodriver', options=options)
+        elif browser == 'opera':
+            options = Options()
+            options.add_experimental_option('w3c', True)
+            if headless:
+                options.headless = True
+            driver = webdriver.Opera(executable_path=f'{drivers}/operadriver', options=options)
 
-    elif browser == "opera":
-        driver = webdriver.Opera(executable_path=OperaDriverManager().install())
-
-    elif browser == "yandex":
-        driver = webdriver.Chrome(executable_path=f"{drivers}/yandexdriver")
+        else:
+            raise ValueError("Driver is not supported")
 
     else:
-        raise ValueError('Browser not supported')
+        executor_url = f"http://{executor}:4444/wd/hub"
+        logger.info(f"Starting a remote environment: {executor_url}, browser: {browser}")
+        caps = {
+            "browserName": browser,
+            "browserVersion": version,
+            "name": "Vladimir",
+            "selenoid:options": {
+                "enableVNC": vnc,
+                "enableVideo": videos,
+                "enableLog": logs,
+                "sessionTimeout": "2m"
+            },
+            'acceptSslCerts': True,
+            'acceptInsecureCerts': True,
+            'timeZone': 'Europe/Moscow',
+            'goog:chromeOptions': {}
+        }
+
+        options = Options()
+        if browser == 'opera':
+            options.add_experimental_option('w3c', True)
+        driver = webdriver.Remote(command_executor=executor_url,
+                                  desired_capabilities=caps,
+                                  options=options)
+
+    driver.log_level = log_level
+    driver.logger = logger
+    driver.test_name = request.node.name
+    start = datetime.datetime.now()
+    logger.info("===> Test {} started at {}".format(request.node.name, datetime.datetime.now()))
 
     driver.maximize_window()
 
-    request.addfinalizer(driver.close)
+    allure.attach(
+        name=driver.session_id,
+        body=json.dumps(driver.capabilities),
+        attachment_type=allure.attachment_type.JSON
+    )
 
-    driver.get(url)
-    driver.url = url
+    def fin():
+        driver.quit()
+        end = datetime.datetime.now()
+        logger.info("===> Test {} finished at {}".format(request.node.name, datetime.datetime.now()))
+        logger.info(f"The test time was: {end - start}")
 
+    request.addfinalizer(fin)
+
+    def open_path(path=""):
+        return driver.get(url + path)
+
+    driver.maximize_window()
+    driver.open = open_path
+    driver.open()
     return driver

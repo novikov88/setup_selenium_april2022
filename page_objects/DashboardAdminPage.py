@@ -40,32 +40,22 @@ class DashboardAdminPage(BasePage):
         self._click(self.BUTTON_ADD)
 
     def set_product_name(self):
-        self._click(self.PRODUCT_NAME_FIELD)
-        self.browser.find_element(*self.PRODUCT_NAME_FIELD).clear()
-        self.browser.find_element(*self.PRODUCT_NAME_FIELD).send_keys('Vertu-7')
+        self.input(self.PRODUCT_NAME_FIELD, 'Vertu-7')
 
     def set_description(self):
-        self._click(self.DESCRIPTION_FIELD)
-        self.browser.find_element(*self.DESCRIPTION_FIELD).clear()
-        self.browser.find_element(*self.DESCRIPTION_FIELD).send_keys(fake.text())
+        self.input(self.DESCRIPTION_FIELD, fake.text())
 
     def set_meta_tag(self):
-        self._click(self.META_TAG_FIELD)
-        self.browser.find_element(*self.META_TAG_FIELD).clear()
-        self.browser.find_element(*self.META_TAG_FIELD).send_keys('Vertu')
+        self.input(self.META_TAG_FIELD, 'Vertu')
 
     def go_to_data_tab(self):
         self._click(self.DATA_TAB)
 
     def set_model(self):
-        self._click(self.MODEL_FIELD)
-        self.browser.find_element(*self.MODEL_FIELD).clear()
-        self.browser.find_element(*self.MODEL_FIELD).send_keys('7')
+        self.input(self.MODEL_FIELD, '7')
 
     def set_price(self):
-        self._click(self.PRICE_FIELD)
-        self.browser.find_element(*self.PRICE_FIELD).clear()
-        self.browser.find_element(*self.PRICE_FIELD).send_keys('3200')
+        self.input(self.PRICE_FIELD, '3200')
 
     def go_to_image_tab(self):
         self._click(self.IMAGE_TAB)
