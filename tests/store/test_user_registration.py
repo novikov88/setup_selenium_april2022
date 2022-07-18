@@ -13,8 +13,7 @@ def test_successful_registration_and_logout(browser):
     1. Перейти на страницу регистрации
     2. Заполнить поля валидными значениями и нажать на кнопку регичтрации
     3. Произвести logout из кабинета
-    4. Проверить что пользователь вышел
-    """
+    4. Проверить что пользователь вышел"""
     MainPage(browser).go_to_registration()
     RegistrationPage(browser).successful_registration()
     AccountPage(browser).check_registration_success()

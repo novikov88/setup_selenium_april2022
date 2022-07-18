@@ -93,8 +93,7 @@ def test_button_search(browser):
 def test_shopping_preview_button(browser):
     """Шаги:
     1. Найти и кликнуть по кнопке hopping_preview_button
-    2. Проверить что отображается текст "Your shopping cart is empty!"
-    """
+    2. Проверить что отображается текст '"'Your shopping cart is empty!'"""
     MainPage(browser).shopping_preview_button_click()
     MainPage(browser).empty_shopping_cart_text_check()
 
@@ -133,8 +132,7 @@ def test_add_to_cart_button(browser):
     2. Открыть корзину и проверить что товар добавлен
     3. Удалить товар из корзины
     4. Проверить наличие алерта
-    5. Закрыть алерт
-    """
+    5. Закрыть алерт"""
     MainPage(browser).add_to_cart_product()
     MainPage(browser).remove_product()
     SuccessAlert(browser).check_alert_success()
