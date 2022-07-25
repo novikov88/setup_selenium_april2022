@@ -8,8 +8,7 @@ import allure
 def test_apple_cinema_30_radio_buttons(browser):
     """Шаги:
     1. Перейти в карточку товара apple_cinema_30
-    2. Нажать на каждый радиобаттон
-    """
+    2. Нажать на каждый радиобаттон"""
     MainPage(browser).go_to_product()
     ProductPage(browser).click_radio_buttons()
 
@@ -20,8 +19,7 @@ def test_apple_cinema_30_checkboxes(browser):
     """Шаги:
     1. Перейти в карточку товара apple_cinema_30
     2. Активировать все чекбоксы
-    3. Деактивировать все чекбоксы
-    """
+    3. Деактивировать все чекбоксы"""
     MainPage(browser).go_to_product()
     ProductPage(browser).activation_check_boxes()
     ProductPage(browser).deactivation_check_boxes()
@@ -32,8 +30,7 @@ def test_apple_cinema_30_checkboxes(browser):
 def test_apple_cinema_30_text_field(browser):
     """Шаги:
     1. Перейти в карточку товара apple_cinema_30
-    2. Ввести текст в поле text
-    """
+    2. Ввести текст в поле text"""
     MainPage(browser).go_to_product()
     ProductPage(browser).set_text_in_field_text()
 
@@ -43,8 +40,7 @@ def test_apple_cinema_30_text_field(browser):
 def test_apple_cinema_30_textarea_field(browser):
     """Шаги:
     1. Перейти в карточку товара apple_cinema_30
-    2. Ввести текст в поле textarea
-    """
+    2. Ввести текст в поле textarea"""
     MainPage(browser).go_to_product()
     ProductPage(browser).set_text_in_field_text_area()
 
@@ -54,7 +50,6 @@ def test_apple_cinema_30_textarea_field(browser):
 def test_apple_cinema_30_date(browser):
     """Шаги:
     1. Перейти в карточку товара apple_cinema_30
-    2. Выбрать дату из календаря
-    """
+    2. Выбрать дату из календаря"""
     MainPage(browser).go_to_product()
     ProductPage(browser).select_day_in_date_calendar()
