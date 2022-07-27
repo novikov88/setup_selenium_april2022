@@ -17,7 +17,7 @@ def pytest_addoption(parser):
     parser.addoption("--executor", action="store", default="192.168.1.70")
     parser.addoption("--url", default="http://192.168.1.70:8081")
     parser.addoption("--headless", action="store_true")
-    parser.addoption("--drivers", action="store", default=os.path.expanduser("~/Downloads/drivers"))
+    parser.addoption("--drivers", action="store", default=os.path.expanduser("/home/vladimir/Downloads/drivers"))
     parser.addoption("--log_level", action="store", default="DEBUG")
     parser.addoption("--vnc", action="store_true")
     parser.addoption("--logs", action="store_true")
