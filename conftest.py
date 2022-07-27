@@ -5,7 +5,7 @@ import json
 import logging
 import allure
 from selenium import webdriver
-from selenium.webdriver.opera.options import Options
+# from selenium.webdriver.opera.options import Options
 from selenium.webdriver import ChromeOptions
 from selenium.webdriver import FirefoxOptions
 from selenium.webdriver.chrome.options import Options
