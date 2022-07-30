@@ -98,7 +98,7 @@ def browser(request):
     start = datetime.datetime.now()
     logger.info("===> Test {} started at {}".format(request.node.name, datetime.datetime.now()))
 
-    driver.maximize_window()
+    #driver.maximize_window()
 
     allure.attach(
         name=driver.session_id,
